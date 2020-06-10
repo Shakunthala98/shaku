@@ -1,0 +1,89 @@
+1) SELECT  salary
+   FROM ( SELECT salary FROM employee 
+         ORDER BY Salary desc)
+   WHERE rownum <= 3
+   ORDER BY Salary ;
+   
+2) SELECT salary,name FROM employee
+           ORDER BY salary asc;
+
+3) select * from employee where manager_id is null;
+
+4) select e_id,name 
+   from employee join dept1 
+   on employee.dep_id=dept1.dep_id 
+   where name in dep_manager;
+
+5) SELECT E_ID,NAME FROM EMPLOYEE 
+   WHERE SALARY=(SELECT MIN(SALARY) 
+                   FROM EMPLOYEE JOIN DEPT1 
+                   ON EMPLOYEE.DEP_ID=DEPT1.DEP_ID 
+                   where name=dep_manager) ;
+
+6) SELECT count(e_id) FROM employee WHERE dep_id='D02'; 
+
+7) select e_id,name from employee 
+   where salary=(select max(salary) 
+                   from employee join dept1
+                   on employee.dep_id=dept1.dep_id
+                   where dep_name='FINANCE');
+
+8) select e_id,name from employee 
+   where salary=(select min(salary) 
+                  from employee join dept1 
+	  	  on employee.dep_id=dept1.dep_id 
+              	  where dep_name='PRODUCT'); 
+
+9) select count(e_id) from employee
+   where salary=(select max(salary)
+                 from employee join dept1
+                 on employee.dep_id=dept1.dep_id
+		 where dep_name='HEALTH');
+
+10) select * from employee 
+    where dep_id=(select dep_id from dept1
+		  where dep_manager='NATASHA STEVENS') 
+		  and name!='NATASHA STEVENS';
+
+11) select name,count(e_id),dep_name,dep_manager 
+    from employee e join dept1 d 
+    on e.dep_id=d.dep_id 
+    where dep_name='HEALTH' group by name,dep_name,dep_manager ;
+
+12) select d.dep_id,e.e_id,e.manager_id 
+    from employee e join dept1 d on e.dep_id=d.dep_id 
+    where e.dep_id=(select dep_id 
+    from dept1 where dep_name='COMMUNICATIONS');
+
+13) select avg(e.salary),d.dep_id,d.dep_name 
+    from employee e join dept1 d                 
+    on e.dep_id=d.dep_id group by d.dep_id,d.dep_name;
+
+14)select sum(salary) from employee 
+   where dep_id=(select dep_id 
+                 from dept1 where dep_name='FINANCE');
+
+15) select min(sal),d.dep_id,d.dep_manager 
+    from (select sum(Salary) sal 
+    from employee group by dep_id) as e,dept1 d;
+
+16) select count(e.e_id),d.dep_name    
+    from employee e join dept1 d                
+    on e.dep_id=d.dep_id group by e.dep_id,d.dep_name;
+
+17) select count(e.e_id),d.dep_name
+    from employee e join dept1 d on e.dep_id=d.dep_id   
+    where salary<20000 group by e.dep_id,d.dep_name;
+
+18) select count(e_id),dep_name
+    from employee e join dept1 d                   
+    on e.dep_id=d.dep_id where e.dep_id='D04'
+    group by dep_name;
+
+19)select max(e_id),dep_name 
+   from (select count(e_id) e_id 
+         from employee group by dep_id),dept1 group by dep_name;
+
+20) select * from employee 
+    where dep_id=(select dep_id from dept1 
+                   where dep_manager='TIM ARCHER');
