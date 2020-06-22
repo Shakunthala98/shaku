@@ -106,7 +106,6 @@ def longpal(string):
                 maxLength = high - low + 1
             low -= 1
             high += 1
-    #print ("Longest palindrome substring is: ",end='') 
     return (string[start:start + maxLength]) 
 
 
